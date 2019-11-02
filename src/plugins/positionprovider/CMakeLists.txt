@@ -28,5 +28,7 @@ IF(LIBWLOCATE_FOUND)
      ADD_SUBDIRECTORY( wlocate )
 ENDIF()
 
+ADD_SUBDIRECTORY( xplane )
+
 # experimental implementation
 # ADD_SUBDIRECTORY( geoclue )
