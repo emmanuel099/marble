@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>259</width>
+    <width>297</width>
     <height>268</height>
    </rect>
   </property>
@@ -31,13 +31,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="positionTrackingComboBox">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
+      <widget class="QComboBox" name="positionTrackingComboBox">
+       <item>
+        <property name="text">
+         <string>Disabled</string>
+        </property>
+       </item>
+      </widget>
      </item>
-    </widget>
+     <item>
+      <widget class="QToolButton" name="openDescriptionButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset theme="help-about"/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">

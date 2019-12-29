@@ -26,6 +26,7 @@
 #include "PluginManager.h"
 #include "PositionTracking.h"
 #include "routing/RoutingManager.h"
+#include "PluginAboutDialog.h"
 
 using namespace Marble;
 /* TRANSLATOR Marble::CurrentLocationWidget */
@@ -67,6 +68,7 @@ class CurrentLocationWidgetPrivate
     void saveTrack();
     void openTrack();
     void clearTrack();
+    void showPluginAboutDialog();
 };
 
 CurrentLocationWidgetPrivate::CurrentLocationWidgetPrivate()
@@ -188,6 +190,8 @@ void CurrentLocationWidget::setMarbleWidget( MarbleWidget *widget )
               this, SLOT(openTrack()));
     connect (d->m_currentLocationUi.clearTrackButton, SIGNAL(clicked(bool)),
              this, SLOT(clearTrack()));
+    connect (d->m_currentLocationUi.openDescriptionButton, SIGNAL(clicked(bool)),
+             this, SLOT(showPluginAboutDialog()));
     connect( d->m_widget->model(), SIGNAL(trackedPlacemarkChanged(const GeoDataPlacemark*)),
              this, SLOT(trackPlacemark()) );
 }
@@ -412,6 +416,25 @@ void CurrentLocationWidgetPrivate::clearTrack()
         m_currentLocationUi.saveTrackButton->setEnabled( false );
         m_currentLocationUi.clearTrackButton->setEnabled( false );
     }
+}
+
+void CurrentLocationWidgetPrivate::showPluginAboutDialog()
+{
+    const auto* plugin = m_widget->model()->positionTracking()->positionProviderPlugin();
+    if (!plugin) {
+        return;
+    }
+
+    PluginAboutDialog aboutDialog;
+    aboutDialog.setName( plugin->guiString() );
+    aboutDialog.setVersion( plugin->version() );
+    const QString copyrightText = QObject::tr( "(c) %1 The Marble Project"
+                                               "<br/><a href=\"https://edu.kde.org/marble\">https://edu.kde.org/marble</a>" );
+    aboutDialog.setAboutText( plugin->name() + "<br/><br/>" +
+                              plugin->description() + "<br/><br/>" +
+                              copyrightText.arg( plugin->copyrightYears() ) );
+    aboutDialog.setAuthors( plugin->pluginAuthors() );
+    aboutDialog.exec();
 }
 
 AutoNavigation::CenterMode CurrentLocationWidget::recenterMode() const
