@@ -38,7 +38,7 @@ XPlanePositionProviderPlugin::XPlanePositionProviderPlugin()
 
 QString XPlanePositionProviderPlugin::name() const
 {
-    return tr("X-Plane position provider Plugin");
+    return tr("X-Plane position provider plugin");
 }
 
 QString XPlanePositionProviderPlugin::nameId() const
@@ -58,7 +58,14 @@ QString XPlanePositionProviderPlugin::version() const
 
 QString XPlanePositionProviderPlugin::description() const
 {
-    return tr("Reports the position of the running X-Plane application.");
+    return tr("Reports the position of the running X-Plane application."
+              "<br/><br/>"
+              "X-Plane Setup:"
+              "<ol>"
+              "<li>Open Settings > Data Output</li>"
+              "<li>Enable \"Send network data output\" using port 40000</li>"
+              "<li>Enable \"Network via UDP\" for index 3, 19 and 20</li>"
+              "</ol>");
 }
 
 QString XPlanePositionProviderPlugin::copyrightYears() const
